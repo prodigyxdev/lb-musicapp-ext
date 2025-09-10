@@ -3,6 +3,29 @@ class YouTubeService {
     constructor() {
         this.oEmbedBaseUrl = 'https://www.youtube.com/oembed';
         this.thumbnailBaseUrl = 'https://img.youtube.com/vi';
+        this.debug = false;
+    }
+
+    setDebug(debug) {
+        this.debug = debug;
+    }
+
+    debugLog(...args) {
+        if (this.debug) {
+            console.log(...args);
+        }
+    }
+
+    debugWarn(...args) {
+        if (this.debug) {
+            console.warn(...args);
+        }
+    }
+
+    debugError(...args) {
+        if (this.debug) {
+            console.error(...args);
+        }
     }
 
     /**
@@ -95,7 +118,7 @@ class YouTubeService {
                 html: data.html || null
             };
         } catch (error) {
-            console.error('Error fetching YouTube metadata:', error);
+            this.debugError('Error fetching YouTube metadata:', error);
             throw error;
         }
     }
@@ -132,7 +155,7 @@ class YouTubeService {
             };
         } catch (error) {
             // Fallback with basic info
-            console.warn('Failed to fetch metadata, using fallback:', error);
+            this.debugWarn('Failed to fetch metadata, using fallback:', error);
             return {
                 url: youtubeUrl,
                 videoId: videoId,
