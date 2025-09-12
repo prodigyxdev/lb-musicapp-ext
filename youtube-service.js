@@ -39,13 +39,7 @@ class YouTubeService {
             return window.musicApp.t(key);
         }
         
-        // Fallback to hardcoded English strings
-        const fallbacks = {
-            'music.unknownTitle': 'Unknown Title',
-            'music.unknownArtist': 'Unknown Artist'
-        };
-        
-        return fallbacks[key] || key;
+        return key;
     }
 
     /**
@@ -154,8 +148,7 @@ class YouTubeService {
                 source: 'youtube'
             };
         } catch (error) {
-            // Fallback with basic info
-            this.debugWarn('Failed to fetch metadata, using fallback:', error);
+            this.debugWarn('Failed to fetch metadata:', error);
             return {
                 url: youtubeUrl,
                 videoId: videoId,
